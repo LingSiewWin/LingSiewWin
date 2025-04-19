@@ -2,27 +2,48 @@ name: Generate Snake Animation
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Runs every day at midnight
+    - cron: "0 */12 * * *" # Runs every 12 hours
   workflow_dispatch: # Allows manual triggering
 
 jobs:
-  generate:
+  generate-snake:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 5
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Generate Snake SVG
-        uses: Platane/snk@v3
+      - name: Generate Snake SVGs
+        uses: Platane/snk@master
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/github-contribution-grid-snake.svg
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
+            dist/github-snake-custom.svg?palette=custom&colors=ff0000,00ff00,0000ff
 
-      - name: Commit and Push SVG
+      - name: Verify Generated SVGs
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dist/github-contribution-grid-snake.svg
-          git commit -m "Update contribution snake SVG"
-          git push
+          ls -la dist/
+          for svg in dist/*.svg; do
+            if [ -f "$svg" ]; then
+              echo "Found $svg"
+            else
+              echo "Missing SVG files!"
+              exit 1
+            fi
+          done
+
+      - name: Commit and Push SVGs
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update snake SVGs [${{ github.run_id }}] - ${{ github.event_name }}"
+          branch: snake-output
+          file_pattern: dist/*.svg
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
