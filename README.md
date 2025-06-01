@@ -11,8 +11,8 @@
 # 🐍 Contribution chart (Default)
 ![Total contribution](https://raw.githubusercontent.com/LingSiewWin/LingSiewWin/refs/heads/output/github-contribution-grid-snake.svg)
 
-# 🐍 Contribution chart (Blue Theme)
-![Total contribution](https://raw.githubusercontent.com/LingSiewWin/LingSiewWin/refs/heads/output/github-contribution-grid-snake-blue.svg)
+### 🐍 Contribution chart
+![Total contribution](https://raw.githubusercontent.com/LingSiewWin/LingSiewWin/refs/heads/output/github-contribution-grid-snake.svg)
 
 # 📊 GitHub Stats:
 ![](https://github-readme-stats.vercel.app/api?username=LingSiewWin&theme=dark&hide_border=false&include_all_commits=true&count_private=true)<br/>
