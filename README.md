@@ -7,10 +7,33 @@
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ling-siew-win/)  
 [![Email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:lingsiewwin99@gmail.com)
 
-## Contribution Chart:
-<p align="center">
-  <img src="https://raw.githubusercontent.com/LINGSIEWWIN/LINGSIEWWIN/master/profile-3d-contrib/profile-green-animate.svg" alt="GitHub 3D Contribution Graph" width="80%" />
-</p>
+## 📊 My GitHub Journey in 3D
+<div align="center">
+  <h3>🚀 Interactive 3D Contribution Graph</h3>
+  <img src="https://raw.githubusercontent.com/LINGSIEWWIN/LINGSIEWWIN/master/profile-3d-contrib/profile-green-animate.svg" alt="🎯 3D GitHub Contribution Chart" width="90%" />
+  <br>
+  <i>Hover over the chart to explore my coding journey through the year!</i>
+</div>
+
+---
+
+## 📈 Alternative Contribution Views
+<details>
+<summary>📊 Click to see more GitHub statistics</summary>
+
+### Traditional GitHub Stats
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=LINGSIEWWIN&show_icons=true&theme=radical)  
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=LINGSIEWWIN&theme=radical)
+
+### Contribution Streak
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=LINGSIEWWIN&theme=radical)
+
+<!-- Snake animation temporarily hidden -->
+<!-- ![Snake animation](https://raw.githubusercontent.com/LINGSIEWWIN/LINGSIEWWIN/output/github-contribution-grid-snake.svg) -->
+
+</details>
+
+---
 
 # 💻 Tech Stack:
 ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)  
@@ -51,10 +74,6 @@ Current poll results (updated weekly):
 - 🐹 **Go** - Cloud & microservices champion  
 - 🎯 **Kotlin** - Android & multiplatform star
 - 🍎 **Swift** - iOS & macOS native
-
-## 📊 GitHub Stats:
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=LINGSIEWWIN&show_icons=true&theme=radical)  
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=LINGSIEWWIN&theme=radical)
 
 ---
 
