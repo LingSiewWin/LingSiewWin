@@ -8,12 +8,9 @@
 [![Email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:lingsiewwin99@gmail.com)
 
 ## 📊 My GitHub Journey in 3D
-<div align="center">
-  <h3>🚀 Interactive 3D Contribution Graph</h3>
-  <img src="https://raw.githubusercontent.com/LINGSIEWWIN/LINGSIEWWIN/master/profile-3d-contrib/profile-green-animate.svg" alt="🎯 3D GitHub Contribution Chart" width="90%" />
-  <br>
-  <i>Hover over the chart to explore my coding journey through the year!</i>
-</div>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/LINGSIEWWIN/LINGSIEWWIN/master/profile-3d-contrib/profile-green-animate.svg" alt="GitHub 3D Contribution Graph" width="80%" />
+</p>
 
 ---
 
