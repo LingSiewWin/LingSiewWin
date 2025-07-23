@@ -37,7 +37,3 @@
 ![Profile Views](https://komarev.com/ghpv/?username=LINGSIEWWIN&color=brightgreen&style=flat-square)  
 ![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=LINGSIEWWIN.LINGSIEWWIN&left_color=red&right_color=green)
 ---
-
-![Visit Count](https://visitcount.itsvg.in/api?id=LINGSIEWWIN&color=1)
-
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
