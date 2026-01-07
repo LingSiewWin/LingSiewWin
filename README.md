@@ -1,11 +1,11 @@
 # 💫 About Me:
-🔖 AI developer  
+🔖 Building AI x Web3  
 📚 Final year undergraduate student  
 ⛰️ Part-time hiker
 
 ## 🌐 Socials:
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ling-siew-win/)  
-[![Email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:lingsiewwin99@gmail.com)
+[![Email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:siewwwin@gmail.com)
 
 ## 📈 GitHub Statistics
 <details>
