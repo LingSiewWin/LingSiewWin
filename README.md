@@ -1,6 +1,5 @@
 # 💫 About Me:
 🔖 Building AI x Web3  
-📚 Final year undergraduate student  
 ⛰️ Part-time hiker
 
 ## 🌐 Socials:
