@@ -10,6 +10,8 @@ env:
   SNK_REF: v3.5.0
   SNK_SHA: d8f6715049803e982ee5ff501b6b9b7d5deeb09b
   SNK_OUTPUT: "snake.svg?color_snake=#ffd23f&color_dots=#1a1b3a,#7b2ff7,#d726c8,#ff5fd2,#4ff0ff"
+  # time the car takes per tile, in ms. snk's own speed is 100; higher is slower.
+  STEP_MS: 130
 
 jobs:
   generate:
@@ -50,7 +52,7 @@ jobs:
             }' > build/calendar.json
 
       - name: solve the route and draw the untouched snk svg
-        run: SNK_DIR="$RUNNER_TEMP/snk" bun .github/scripts/route.ts build/calendar.json build "$SNK_OUTPUT"
+        run: SNK_DIR="$RUNNER_TEMP/snk" bun .github/scripts/route.ts build/calendar.json build "$SNK_OUTPUT" "$STEP_MS"
 
       - name: draw the night drive
         run: python3 .github/scripts/neon_snake.py build/snk-raw.svg build/route.json dist/snake.svg

@@ -1,7 +1,7 @@
 // Runs the Platane/snk solver on a saved GitHub contributionCalendar response, with the same
 // calls as snk's own generator. Writes the untouched snk SVG and the real route.
 //
-// Usage: SNK_DIR=<checkout of Platane/snk> bun route.ts <calendar.json> <out dir> <output entry>
+// Usage: SNK_DIR=<checkout of Platane/snk> bun route.ts <calendar.json> <out dir> <output entry> [ms per step]
 // <output entry> is the snk output option, for example "snake.svg?color_snake=#ffd23f&color_dots=...".
 const SNK = process.env.SNK_DIR;
 if (!SNK) throw new Error("SNK_DIR is not set");
@@ -16,7 +16,7 @@ const { parseEntry } = await import(`${SNK}/packages/generate-snake-animation/ou
 type Day = { contributionCount: number; contributionLevel: string; weekday: number; date: string };
 type Cell = { x: number; y: number; date: string; count: number; level: number };
 
-const [calendarPath, outDir, entry] = process.argv.slice(2);
+const [calendarPath, outDir, entry, stepMs] = process.argv.slice(2);
 if (!calendarPath || !outDir || !entry) throw new Error("usage: bun route.ts <calendar.json> <out dir> <output entry>");
 
 const LEVEL: Record<string, number> = { NONE: 0, FIRST_QUARTILE: 1, SECOND_QUARTILE: 2, THIRD_QUARTILE: 3, FOURTH_QUARTILE: 4 };
@@ -37,6 +37,11 @@ chain.push(...getPathToPose(chain.slice(-1)[0], snake4)!);
 const options = parseEntry(entry);
 if (!options || options.format !== "svg") throw new Error(`not an svg output entry: ${entry}`);
 const { drawOptions, animationOptions } = options;
+if (stepMs) {
+  // snk moves one cell per 100 ms and has no option for it: a larger value slows the whole loop
+  if (!(+stepMs >= 50 && +stepMs <= 1000)) throw new Error(`ms per step out of range: ${stepMs}`);
+  animationOptions.stepDurationMs = +stepMs;
+}
 await Bun.write(`${outDir}/snk-raw.svg`, createSvg(grid, cells, chain, drawOptions, animationOptions));
 
 // one eat = the first step whose head lands on a still-coloured cell (same rule as snk's svg-creator)

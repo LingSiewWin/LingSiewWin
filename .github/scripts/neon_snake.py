@@ -2,7 +2,7 @@
 
 Three linked ideas, all driven by the real route and the real daily contribution counts:
   battery  the car charges with every day it eats: its body heats up (cool, amber, yellow,
-           pink-white), its headlights and glow grow, and its light trail gets longer
+           pink-white), its headlights and glow grow, and its exhaust gets longer and lights up
   route    the car draws its drive as one neon line; each eaten day leaves a node sized by
            that day's count; after the last day the whole route lights up once
   skyline  each week owns a building under the grid; eating a day raises it and it stays up
@@ -31,9 +31,9 @@ PAD_LEFT, PAD_TOP = 30, 8               # room for the weekday and month labels
 
 # battery
 CHARGE_P = .75                          # charge per eaten day = count ** P, so small days still register
-TRAIL_BASE, TRAIL_EXTRA = 3, 10         # trail dots: always there, and added at full charge
 COOL, AMBER, SUN, CORE, CORE_RIM = "#5f86a6", "#ff7a1a", "#ffd23f", "#ffe6f5", "#ff5fd2"
-GLASS, HEADLIGHT, TAILLIGHT = "#10122b", "#fff3b0", "#ff2e63"
+GLASS, HEADLIGHT, TAILLIGHT, SMOKE = "#10122b", "#fff3b0", "#ff2e63", "#8f9bb8"   # smoke shows on dark and white pages
+PUFFS, PUFF_MS = 3, 620                 # exhaust puffs and roughly how long one lives
 HALO_R, BEAM_LEN = 34, 30
 
 # route
@@ -152,6 +152,7 @@ def build(svg: str, route: dict, today: date) -> str:
             merged[pct(ms)] = css + (f";animation-timing-function:{OUT}" if ease else "")
         return f"@keyframes {name}{{" + "".join(f"{k}{{{v}}}" for k, v in merged.items()) + "}"
 
+    puff_ms = loop / max(1, round(loop / PUFF_MS))
     css = [
         f".x-m{{animation:s0 {loop}ms linear infinite}}",
         f".x-r{{transform-origin:8px 8px;animation:x-r {loop}ms linear infinite}}",
@@ -161,7 +162,12 @@ def build(svg: str, route: dict, today: date) -> str:
         f".x-h{{transform-origin:8px 8px;opacity:0;animation:x-h {loop}ms linear infinite}}",
         f".x-w{{transform-origin:18px 8px;opacity:0;animation:x-w {loop}ms linear infinite}}",
         f".x-t{{fill:{TAILLIGHT}}}",
-        f".x-e{{transform-box:fill-box;transform-origin:center;transform:scale(0);animation:none {loop}ms linear infinite}}",
+        # exhaust: the plume stretches with the charge; puffs drift back from the tailpipe, swell and fade
+        f".x-q{{transform-origin:-2px 8px;animation:x-q {loop}ms linear infinite}}",
+        f".x-u{{opacity:0;transform-box:fill-box;transform-origin:center;animation:x-u {puff_ms:.3f}ms linear infinite}}",
+        f"@keyframes x-u{{0%{{opacity:0;transform:translate(0,0) scale(.45);animation-timing-function:{OUT}}}"
+        "12%{opacity:.8}100%{opacity:0;transform:translate(-13px,0) scale(2.3)}}",
+        charge_keyframes("x-q", lambda c: f"transform:scale({.75 + .75 * c:.3f},{.9 + .25 * c:.3f})"),
         charge_keyframes("x-a", lambda c: f"opacity:{heat_amber(c):.2f}"),
         charge_keyframes("x-y", lambda c: f"opacity:{heat_sun(c):.2f}"),
         charge_keyframes("x-c", lambda c: f"opacity:{heat_core(c):.2f}"),
@@ -196,6 +202,10 @@ def build(svg: str, route: dict, today: date) -> str:
         f'<circle class="x-h" cx="8" cy="8" r="{HALO_R}" fill="url(#x-hg)"/>'
         f'<g class="x-r" style="transform:rotate({start}deg)">'
         f'<path class="x-w" d="M18,4.6L{18 + BEAM_LEN},-3V19L18,11.4Z" fill="url(#x-wg)"/>'
+        '<g class="x-q">'
+        + "".join(f'<circle class="x-u" cx="-4.5" cy="{8 + (i % 2 * 2 - 1) * .8 * (i > 0):.1f}" r="2.6" fill="url(#x-sg)" '
+                  f'style="animation-delay:{-puff_ms * i / PUFFS:.1f}ms"/>' for i in range(PUFFS))
+        + '<path class="x-a" d="M-2,6.3L-11,8L-2,9.7Z"/><path class="x-y" d="M-2,7.1L-7.5,8L-2,8.9Z"/></g>'
         f'<rect {body} fill="{COOL}"/><rect class="x-a" {body}/><rect class="x-y" {body}/>'
         f'<rect class="x-c" x="12.6" y="5.2" width="3.4" height="5.6" rx="1.4"/>'
         f'<rect x="3.2" y="4.5" width="8.6" height="7" rx="2.2" fill="{GLASS}" opacity=".88"/>'
@@ -205,27 +215,6 @@ def build(svg: str, route: dict, today: date) -> str:
         f'<rect class="x-t" x="-2" y="3.9" width="1.3" height="2.3" rx=".5"/>'
         f'<rect class="x-t" x="-2" y="9.8" width="1.3" height="2.3" rx=".5"/></g></g>'
     )
-
-    # ---- light trail: dot k sits where the car was k steps ago; charge adds dots -----------------
-    trail = []
-    for k in range(1, TRAIL_BASE + TRAIL_EXTRA + 1):
-        r = max(1.4, 3.2 - .14 * k)
-        px, py = heads[-1 - k] if k < len(heads) else heads[0]
-        dot = f'<circle class="x-t" cx="8" cy="8" r="{r:.1f}" opacity="{max(.35, .95 - .045 * k):.2f}"/>'
-        if k > TRAIL_BASE:
-            j = k - TRAIL_BASE
-            on = next(e["ms"] for e, qa in zip(eats, q_after) if qa >= j / TRAIL_EXTRA - 1e-9)
-            on = max(on, (k + 1) * step_ms)                      # never before the dot has a past to sit on
-            off = full_until + (1 - j / TRAIL_EXTRA) * (empty_at - full_until)
-            fade = min(300, (loop - off) * .9)
-            if on + 300 >= off:
-                continue                                         # no room in this loop: the dot never grows
-            css.append(f"@keyframes x-e{k}{{0%,{pct(on)}{{transform:scale(0);animation-timing-function:{OUT}}}"
-                       f"{pct(on + 300)},{pct(off)}{{transform:scale(1)}}{pct(off + fade)},100%{{transform:scale(0)}}}}")
-            dot = f'<g class="x-e" style="animation-name:x-e{k}">{dot}</g>'
-        trail.append(f'<g class="x-m" style="transform:translate({px * 16}px,{py * 16}px);'
-                     f'animation-delay:{k * step_ms - loop}ms">{dot}</g>')
-    trail.reverse()                      # far dots first, so nearer ones sit on top
 
     # ---- route: a line that grows under the car, one node per eaten day -------------------------
     # Drawn as one bar per straight run, grown by transform. A single dashed path would be one
@@ -354,13 +343,15 @@ def build(svg: str, route: dict, today: date) -> str:
         f'<stop offset=".34" stop-color="{SUN}" stop-opacity=".45"/><stop offset="1" stop-color="{SUN}" stop-opacity="0"/></radialGradient>'
         f'<radialGradient id="x-hg"><stop offset="0" stop-color="{SUN}" stop-opacity=".55"/>'
         f'<stop offset=".5" stop-color="{CORE_RIM}" stop-opacity=".25"/><stop offset="1" stop-color="{CORE_RIM}" stop-opacity="0"/></radialGradient>'
+        f'<radialGradient id="x-sg"><stop offset="0" stop-color="{SMOKE}" stop-opacity=".9"/>'
+        f'<stop offset=".55" stop-color="{SMOKE}" stop-opacity=".45"/><stop offset="1" stop-color="{SMOKE}" stop-opacity="0"/></radialGradient>'
         f'<linearGradient id="x-wg" gradientUnits="userSpaceOnUse" x1="18" x2="{18 + BEAM_LEN}">'
         f'<stop offset="0" stop-color="{HEADLIGHT}" stop-opacity=".8"/><stop offset="1" stop-color="{HEADLIGHT}" stop-opacity="0"/></linearGradient>'
         "</defs>"
     )
     calm = "@media (prefers-reduced-motion:reduce){*{animation:none!important}.x-b{transform:var(--f)}.x-o{opacity:1}}"
     svg = svg.replace("</style>", "".join(css) + calm + "</style>" + defs)
-    svg = svg.replace("</svg>", city + route_layer + "".join(trail) + car + labels(columns, colors, today) + "</svg>")
+    svg = svg.replace("</svg>", city + route_layer + car + labels(columns, colors, today) + "</svg>")
     assert "<script" not in svg and "<animate" not in svg and not re.search(r'href="(?!#)', svg), "nothing may load from outside the file"
     return svg
 
