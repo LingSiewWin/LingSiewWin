@@ -1,5 +1,6 @@
 """Add effects to a Platane/snk snake SVG, timed to each tile the snake eats:
-a glow behind the tile, a shockwave ring on it, and an equaliser bar under its column.
+a soft glow behind the tile, a white flash on it, a thin tile-shaped echo, four corner
+sparks, and an equaliser bar under its column.
 Also adds what the GitHub contribution graph shows: month and weekday labels and the
 Less-More colour legend.
 
@@ -10,9 +11,14 @@ import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
-GLOW = [(0, 0, .3), (120, .85, 1.15), (260, .75, .9), (400, .6, 1), (900, 0, 1)]   # ms, opacity, scale
-RING = [(0, 1, .6), (250, .8, 3.3), (400, .5, 2.8), (650, 0, 3.1)]
-BOUNCE = [(0, 0), (110, 1), (250, .4), (380, .62), (520, .3), (800, 0)]            # ms, bar height 0..1
+OUT = "cubic-bezier(.16,1,.3,1)"        # fast start, long settle: no overshoot
+SOFT = "cubic-bezier(.33,1,.68,1)"
+# (ms after the eat, opacity, scale, easing towards the next stop)
+GLOW = [(0, 0, .6, SOFT), (140, .7, 1, SOFT), (1000, 0, 1.15, None)]
+FLASH = [(0, .95, 1, OUT), (90, .8, 1.18, SOFT), (360, 0, 1.3, None)]
+ECHO = [(0, 0, 1, SOFT), (40, .85, 1.05, OUT), (420, .35, 1.85, SOFT), (760, 0, 2.05, None)]
+SPARK = [(0, 0, .5, SOFT), (50, 1, .7, OUT), (380, .6, 1.5, SOFT), (640, 0, 1.7, None)]
+BOUNCE = [(0, 0), (90, 1), (180, .74), (300, .5), (450, .3), (650, .14), (900, 0)]   # ms, bar height: kick, smooth decay
 SPREAD = {-1: .45, 0: 1, 1: .45}        # an eaten tile also nudges the neighbour columns
 BASE = .12                              # resting bar height
 BAR_Y, BAR_H = 116, 24                  # strip between the grid and the progress bar
@@ -59,8 +65,9 @@ def bounce(dt: float) -> float:
 
 
 def shared_keyframes(name: str, stops, total: int) -> str:
-    body = "".join(f"{ms / total * 100:.3f}%{{opacity:{o};transform:scale({s})}}" for ms, o, s in stops[:-1])
-    ms, o, s = stops[-1]
+    body = "".join(f"{ms / total * 100:.3f}%{{opacity:{o};transform:scale({s});animation-timing-function:{e}}}"
+                   for ms, o, s, e in stops[:-1])
+    ms, o, s, _ = stops[-1]
     return f"@keyframes {name}{{{body}{ms / total * 100:.3f}%,100%{{opacity:{o};transform:scale({s})}}}}"
 
 
@@ -93,10 +100,12 @@ def transform(svg: str, today: date) -> str:
         events.append((pct / 100 * total, int(x) + 6, int(y) + 6, int(x) // 16, var))
 
     css = (
-        f".g,.r{{opacity:0;transform-box:fill-box;transform-origin:center;animation:g {total}ms linear infinite}}"
-        f".r{{animation-name:r;fill:none;stroke-width:1.5px}}"
+        f".g,.f,.r,.k{{opacity:0;transform-box:fill-box;transform-origin:center;animation:g {total}ms linear infinite}}"
+        f".f{{animation-name:f;fill:#fff}}"
+        f".r{{animation-name:r;fill:none;stroke-width:1px;vector-effect:non-scaling-stroke}}"
+        f".k{{animation-name:k;fill:none;stroke-width:1.2px;stroke-linecap:round}}"
         f".b{{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY({BASE});animation:none {total}ms linear infinite}}"
-        + shared_keyframes("g", GLOW, total) + shared_keyframes("r", RING, total)
+        + "".join(shared_keyframes(n, k, total) for n, k in (("g", GLOW), ("f", FLASH), ("r", ECHO), ("k", SPARK)))
         + "".join(bar_keyframes(c, events, total) for c in range(columns))
     )
     defs = "<defs>" + "".join(
@@ -107,10 +116,15 @@ def transform(svg: str, today: date) -> str:
         f'<linearGradient id="eq" gradientUnits="userSpaceOnUse" x1="0" y1="{BAR_Y}" x2="0" y2="{BAR_Y + BAR_H}">'
         f'<stop offset="0" stop-color="{colors["c4"]}"/><stop offset="1" stop-color="{colors["c1"]}"/></linearGradient></defs>'
     )
-    glows = "".join(f'<circle class="g" cx="{x}" cy="{y}" r="40" fill="url(#g{v})" style="animation-delay:{t:.0f}ms"/>'
+    glows = "".join(f'<circle class="g" cx="{x}" cy="{y}" r="24" fill="url(#g{v})" style="animation-delay:{t:.0f}ms"/>'
                     for t, x, y, _, v in events)
-    rings = "".join(f'<circle class="r" cx="{x}" cy="{y}" r="7" stroke="{colors[v]}" style="animation-delay:{t:.0f}ms"/>'
-                    for t, x, y, _, v in events)
+    def burst(t, x, y, v):              # all three share the tile's centre, so they scale from it
+        delay, c = f'style="animation-delay:{t:.0f}ms"', colors[v]
+        sparks = "".join(f"M{x + 8 * i},{y + 8 * j}l{2.5 * i},{2.5 * j}" for i, j in ((-1, -1), (1, -1), (1, 1), (-1, 1)))
+        return (f'<rect class="f" x="{x - 6}" y="{y - 6}" width="12" height="12" rx="2" {delay}/>'
+                f'<rect class="r" x="{x - 6}" y="{y - 6}" width="12" height="12" rx="2" stroke="{c}" {delay}/>'
+                f'<path class="k" d="{sparks}" stroke="{c}" {delay}/>')
+    rings = "".join(burst(t, x, y, v) for t, x, y, _, v in events)
     bars = "".join(f'<rect class="b b{c}" x="{c * 16 + 2}" y="{BAR_Y}" width="12" height="{BAR_H}" rx="2" fill="url(#eq)"/>'
                    for c in range(columns))
 
