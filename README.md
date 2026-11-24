@@ -1,59 +1,42 @@
 <img src="assets/scene.svg" alt="Driving along a neon coast road toward the setting sun, under a sign reading Welcome. Roadside billboards show project names." width="100%">
 
-# 💫 About Me:
-🔖 Building AI x Web3  
-⛰️ Part-time hiker
+<p align="center">🔖 Building AI x Web3 &nbsp;·&nbsp; ⛰️ Part-time hiker</p>
 
-## 🌐 Socials:
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg)](https://www.linkedin.com/in/ling-siew-win/)  
-[![Email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:siewwwin@gmail.com)
+## 🗂️ Past Projects
 
-## 🎮 Mission Select
-
-<details>
-<summary><b>Mission 01 · nearbuddy</b> — stress-test AI trading agents in public</summary>
-<br>
-
-A public stress test for AI trading agents on NEAR: bonded, open to attack by anyone, every decision signed in an enclave and verified on chain.
-
-[▶ Play live](https://nearbuddy.vercel.app) · [Source](https://github.com/LingSiewWin/nearbuddy)
-</details>
-
-<details>
-<summary><b>Mission 02 · Tami</b> — the account you give your agents</summary>
-<br>
-
-Agents pay in USDC inside a mandate you signed once. Mandates on-chain, a book both sides sign, USDC on Arc.
-
-[▶ Play live](https://tami-home.up.railway.app) · [Source](https://github.com/LingSiewWin/Tami)
-</details>
-
-<details>
-<summary><b>Mission 03 · claudia</b> — an allowance, not your keys</summary>
-<br>
-
-The human authority layer for AI agents. The agent proposes, a deterministic engine checks the proposal against a mandate.
-
-[▶ Play live](https://claudiahq.vercel.app/) · [Source](https://github.com/LingSiewWin/claudia)
-</details>
-
-<details>
-<summary><b>Mission 04 · HumanMandate</b> — spending rules bound to a person</summary>
-<br>
-
-An allowance bound to a person, not an address. Enforced in Solidity, with Uniswap execution and an on-chain slippage floor. Live on World Chain mainnet.
-
-[▶ Play live](https://human-mandate.vercel.app/desk) · [Source](https://github.com/LingSiewWin/HumanMandate)
-</details>
-
-<details>
-<summary><b>Mission 05 · grazey</b> — a grace period for agent payments</summary>
-<br>
-
-Every agent payment gets a grace period. Recourse for autonomous agent payments, on Arc.
-
-[Source](https://github.com/LingSiewWin/grazey)
-</details>
+<table>
+  <tr>
+    <td colspan="2" valign="top">
+      <b><a href="https://github.com/LingSiewWin/nearbuddy">nearbuddy</a></b> — stress-test AI trading agents in public<br><br>
+      A public stress test for AI trading agents on NEAR: bonded, open to attack by anyone, every decision signed in an enclave and verified on chain.<br><br>
+      <a href="https://nearbuddy.vercel.app">▶ Live</a> · <a href="https://github.com/LingSiewWin/nearbuddy">Source</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <b><a href="https://github.com/LingSiewWin/Tami">Tami</a></b> — the account you give your agents<br><br>
+      Agents pay in USDC inside a mandate you signed once. Mandates on-chain, a book both sides sign, USDC on Arc.<br><br>
+      <a href="https://tami-home.up.railway.app">▶ Live</a> · <a href="https://github.com/LingSiewWin/Tami">Source</a>
+    </td>
+    <td width="50%" valign="top">
+      <b><a href="https://github.com/LingSiewWin/claudia">claudia</a></b> — an allowance, not your keys<br><br>
+      The human authority layer for AI agents. The agent proposes, a deterministic engine checks the proposal against a mandate.<br><br>
+      <a href="https://claudiahq.vercel.app/">▶ Live</a> · <a href="https://github.com/LingSiewWin/claudia">Source</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <b><a href="https://github.com/LingSiewWin/HumanMandate">HumanMandate</a></b> — spending rules bound to a person<br><br>
+      An allowance bound to a person, not an address. Enforced in Solidity, with Uniswap execution and an on-chain slippage floor. Live on World Chain mainnet.<br><br>
+      <a href="https://human-mandate.vercel.app/desk">▶ Live</a> · <a href="https://github.com/LingSiewWin/HumanMandate">Source</a>
+    </td>
+    <td width="50%" valign="top">
+      <b><a href="https://github.com/LingSiewWin/grazey">grazey</a></b> — a grace period for agent payments<br><br>
+      Every agent payment gets a grace period. Recourse for autonomous agent payments, on Arc.<br><br>
+      <a href="https://github.com/LingSiewWin/grazey">Source</a>
+    </td>
+  </tr>
+</table>
 
 ## 📈 GitHub Statistics
 <img src="https://raw.githubusercontent.com/LingSiewWin/LingSiewWin/output/snake.svg" alt="Snake eating my GitHub contribution grid" width="100%">
@@ -72,7 +55,7 @@ Every agent payment gets a grace period. Recourse for autonomous agent payments,
 
 ---
 
-# 💻 Tech Stack:
+## 💻 Tech Stack
 <table>
   <tr>
     <td><b>Languages</b></td>
@@ -98,3 +81,6 @@ Every agent payment gets a grace period. Recourse for autonomous agent payments,
 
 ## 👀 Visitors
 ![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=LINGSIEWWIN.LINGSIEWWIN&left_color=red&right_color=green)
+
+## 🌐 Socials
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg)](https://www.linkedin.com/in/ling-siew-win/) [![Email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:siewwwin@gmail.com)
