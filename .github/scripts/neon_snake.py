@@ -227,21 +227,33 @@ def build(svg: str, route: dict, today: date) -> str:
                      f'animation-delay:{k * step_ms - loop}ms">{dot}</g>')
     trail.reverse()                      # far dots first, so nearer ones sit on top
 
-    # ---- route: one line under the car, one node per eaten day -----------------------------------
+    # ---- route: a line that grows under the car, one node per eaten day -------------------------
+    # Drawn as one bar per straight run, grown by transform. A single dashed path would be one
+    # element, but WebKit renders a long dashed path with stray pieces, so no dashes here.
     last_step = eats[-1]["step"]
-    length = 16 * last_step
-    d = "M" + "L".join(f"{cx * 16 + 8},{cy * 16 + 8}" for cx, cy in heads[:last_step + 1])
+    pts = heads[:last_step + 1]
+    d = "M" + "L".join(f"{cx * 16 + 8},{cy * 16 + 8}" for cx, cy in pts)
     css += [
         f".x-g{{animation:x-g {loop}ms linear infinite}}",
         f"@keyframes x-g{{0%,{pct(line_hold)}{{opacity:1}}{pct(line_off)},100%{{opacity:0}}}}",
-        f".x-l{{fill:none;stroke:{colors['c2']};stroke-width:{LINE_W}px;stroke-linejoin:round;opacity:{LINE_OPACITY};"
-        f"stroke-dasharray:{length} {length + 16};stroke-dashoffset:{length};animation:x-l {loop}ms linear infinite}}",
-        f"@keyframes x-l{{0%{{stroke-dashoffset:{length}}}{pct(last)},100%{{stroke-dashoffset:0}}}}",
+        f".x-l{{fill:{colors['c2']};opacity:{LINE_OPACITY};transform-box:fill-box;animation:none {loop}ms linear infinite}}",
+        ".x-l0{transform-origin:0 50%;transform:scale(0,1)}.x-l1{transform-origin:100% 50%;transform:scale(0,1)}",
+        ".x-l2{transform-origin:50% 0;transform:scale(1,0)}.x-l3{transform-origin:50% 100%;transform:scale(1,0)}",
         f".x-p{{fill:none;stroke:{colors['c3']};stroke-width:2.6px;stroke-linejoin:round;opacity:0;animation:x-p {loop}ms linear infinite}}",
         f"@keyframes x-p{{0%,{pct(pulse[0])}{{opacity:0;animation-timing-function:{OUT}}}"
         f"{pct(pulse[1])}{{opacity:.75;animation-timing-function:ease-out}}{pct(pulse[2])},100%{{opacity:0}}}}",
         f".x-n{{transform:scale(0);transform-box:fill-box;transform-origin:center;stroke-opacity:.3;animation:none {loop}ms linear infinite}}",
     ]
+    runs, i0, half = [], 0, LINE_W / 2
+    for i in range(1, len(pts)):
+        if i == len(pts) - 1 or (pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]) != (pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]):
+            (ax, ay), (bx, by) = pts[i0], pts[i]
+            kind = 0 if bx > ax else 1 if bx < ax else 2 if by > ay else 3      # grows right, left, down, up
+            hidden = "scale(0,1)" if kind < 2 else "scale(1,0)"
+            css.append(f"@keyframes x-u{len(runs)}{{0%,{pct(i0 * step_ms)}{{transform:{hidden}}}{pct(i * step_ms)},100%{{transform:scale(1)}}}}")
+            runs.append(f'<rect class="x-l x-l{kind}" x="{min(ax, bx) * 16 + 8 - half:.1f}" y="{min(ay, by) * 16 + 8 - half:.1f}" '
+                        f'width="{abs(bx - ax) * 16 + LINE_W:.1f}" height="{abs(by - ay) * 16 + LINE_W:.1f}" style="animation-name:x-u{len(runs)}"/>')
+            i0 = i
     nodes = []
     for i, e in enumerate(eats):
         r, c = .9 + .44 * math.sqrt(e["count"]), colors[f"c{e['level']}"]
@@ -249,7 +261,7 @@ def build(svg: str, route: dict, today: date) -> str:
                    f"{pct(e['ms'] + NODE_IN)},100%{{transform:scale(1)}}}}")
         nodes.append(f'<circle class="x-n" cx="{e["col"] * 16 + 8}" cy="{e["row"] * 16 + 8}" r="{r:.1f}" fill="{c}" '
                      f'stroke="{c}" stroke-width="{r * .7:.1f}" style="animation-name:x-n{i}"/>')
-    route_layer = f'<g class="x-g"><path class="x-p" d="{d}"/><path class="x-l" d="{d}"/>{"".join(nodes)}</g>'
+    route_layer = f'<g class="x-g"><path class="x-p" d="{d}"/>{"".join(runs)}{"".join(nodes)}</g>'
 
     # ---- the drive home: when the car leaves a column, that column is given back ----------------
     given_back = {}                      # column -> ms
@@ -287,18 +299,18 @@ def build(svg: str, route: dict, today: date) -> str:
     css += [f".x-b{{transform:translateY({HMAX}px);animation:none linear {loop}ms infinite}}",
             ".x-o{opacity:0}",
             f".x-k{{opacity:0;transform-box:fill-box;transform-origin:center;animation:x-k linear {loop}ms infinite}}"]
-    patterns, buildings, beacon_at = {}, [], None
+    buildings, beacon_at = [], None
+    windows = [                          # two window layouts, drawn once and reused by every building
+        f'<path id="x-w{v}" fill="{WINDOW}" d="' + "".join(
+            f"M{4 + 5 * side},{5 + 5 * row}h3v2.5h-3z" for row in range((HMAX - 8) // 5) for side in range(2)
+            if (row * 7 + side * 3 + v * 5) % 4) + '"/>'
+        for v in range(2)]
 
-    def fill(level: int, variant: int) -> str:
-        pid = f"x-f{level}{variant}"
-        if pid not in patterns:
-            c = colors[f"c{level}"]
-            wins = "".join(f'<rect x="{4 + 5 * s}" y="{5 + 5 * row}" width="3" height="2.5"/>'
-                           for row in range((HMAX - 8) // 5) for s in range(2) if (row * 7 + s * 3 + variant * 5 + level) % 4)
-            patterns[pid] = (f'<pattern id="{pid}" patternUnits="userSpaceOnUse" x="0" y="{SKY_TOP}" width="16" height="{HMAX + 8}">'
-                             f'<rect x="2" width="12" height="{HMAX}" fill="{wall(c)}"/><rect x="2" width="12" height="2" fill="{c}"/>'
-                             f'<g fill="{WINDOW}">{wins}</g></pattern>')
-        return f"url(#{pid})"
+    def building(col: int, level: int, extra: str, style: str) -> str:
+        c, bx = colors[f"c{level}"], col * 16 + 2
+        return (f'<g class="x-b{extra}" style="{style}"><rect x="{bx}" y="{SKY_TOP}" width="12" height="{HMAX}" fill="{wall(c)}"/>'
+                f'<rect x="{bx}" y="{SKY_TOP}" width="12" height="2" fill="{c}"/>'
+                f'<use href="#x-w{col % 2}" x="{col * 16}" y="{SKY_TOP}"/></g>')
 
     for col in sorted(by_col):
         es, t_off = by_col[col], back_time(col)
@@ -316,17 +328,15 @@ def build(svg: str, route: dict, today: date) -> str:
         css.append(f"@keyframes x-b{col}{{" + "".join(
             f"{pct(t)}{{transform:translateY({HMAX - v:.1f}px)" + (f";animation-timing-function:{ease}" if ease else "") + "}"
             for t, (v, ease) in stops.items()) + "}")
-        geo = f'x="{col * 16 + 2}" y="{SKY_TOP}" width="12" height="{HMAX}"'
         rest = f"--f:translateY({HMAX - final:.1f}px)"           # finished height, for reduced motion
-        buildings.append(f'<rect class="x-b" {geo} fill="{fill(es[0]["level"], col % 2)}" style="{rest};animation-name:x-b{col}"/>')
+        buildings.append(building(col, es[0]["level"], "", f"{rest};animation-name:x-b{col}"))
         seen = es[0]["level"]
         for e in es:                     # a higher colour level eaten later repaints the building
             if e["level"] > seen:
                 seen = e["level"]
                 css.append(f"@keyframes x-o{col}-{seen}{{0%,{pct(e['ms'])}{{opacity:0}}{pct(e['ms'] + 200)},{pct(t_off + sink_ms)}{{opacity:1}}"
                            f"{pct(t_off + sink_ms + 1)},100%{{opacity:0}}}}")
-                buildings.append(f'<rect class="x-b x-o" {geo} fill="{fill(seen, col % 2)}" '
-                                 f'style="{rest};animation-name:x-b{col},x-o{col}-{seen}"/>')
+                buildings.append(building(col, seen, " x-o", f"{rest};animation-name:x-b{col},x-o{col}-{seen}"))
         if size(es) == top:
             beacon_at = (col, es[-1]["ms"] + RISE_MS, t_off, final)
 
@@ -338,7 +348,7 @@ def build(svg: str, route: dict, today: date) -> str:
             f'<circle class="x-k" cx="{col * 16 + 8}" cy="{GROUND - final - 6:.1f}" r="8" fill="url(#x-kg)"/>')
 
     defs = (
-        "<defs>" + "".join(patterns.values())
+        "<defs>" + "".join(windows)
         + f'<clipPath id="x-clip"><rect x="-16" y="{SKY_TOP - 8}" width="{columns * 16 + 32}" height="{HMAX + 8}"/></clipPath>'
         f'<radialGradient id="x-kg"><stop offset="0" stop-color="{SUN}"/><stop offset=".3" stop-color="{SUN}"/>'
         f'<stop offset=".34" stop-color="{SUN}" stop-opacity=".45"/><stop offset="1" stop-color="{SUN}" stop-opacity="0"/></radialGradient>'
@@ -351,7 +361,7 @@ def build(svg: str, route: dict, today: date) -> str:
     calm = "@media (prefers-reduced-motion:reduce){*{animation:none!important}.x-b{transform:var(--f)}.x-o{opacity:1}}"
     svg = svg.replace("</style>", "".join(css) + calm + "</style>" + defs)
     svg = svg.replace("</svg>", city + route_layer + "".join(trail) + car + labels(columns, colors, today) + "</svg>")
-    assert "<script" not in svg and "<animate" not in svg and "href=" not in svg
+    assert "<script" not in svg and "<animate" not in svg and not re.search(r'href="(?!#)', svg), "nothing may load from outside the file"
     return svg
 
 
