@@ -2,7 +2,7 @@
 
 Three linked ideas, all driven by the real route and the real daily contribution counts:
   battery  the car charges with every day it eats: its body heats up (cool, amber, yellow,
-           pink-white), its headlights and glow grow, and its exhaust gets longer and lights up
+           pink-white), and its headlights, tail lights and glow grow
   route    the car draws its drive as one neon line; each eaten day leaves a node sized by
            that day's count; after the last day the whole route lights up once
   skyline  each week owns a building under the grid; eating a day raises it and it stays up
@@ -32,8 +32,8 @@ PAD_LEFT, PAD_TOP = 30, 8               # room for the weekday and month labels
 # battery
 CHARGE_P = .75                          # charge per eaten day = count ** P, so small days still register
 COOL, AMBER, SUN, CORE, CORE_RIM = "#5f86a6", "#ff7a1a", "#ffd23f", "#ffe6f5", "#ff5fd2"
-GLASS, HEADLIGHT, TAILLIGHT, SMOKE = "#10122b", "#fff3b0", "#ff2e63", "#8f9bb8"   # smoke shows on dark and white pages
-PUFFS, PUFF_MS = 3, 620                 # exhaust puffs and roughly how long one lives
+GLASS, HEADLIGHT, TAILLIGHT = "#10122b", "#fff3b0", "#ff2e63"
+CORNER = 7.5                            # radius of the arc the car drives through a turn (a tile is 16 wide)
 HALO_R, BEAM_LEN = 34, 30
 
 # route
@@ -96,7 +96,6 @@ def build(svg: str, route: dict, today: date) -> str:
     colors = dict(re.findall(r"--(c[0-4]):(#[0-9a-fA-F]{6})", svg))
     assert len(colors) == 5, "tile colours not found: snk output format changed"
     assert len(heads) == route["steps"] and heads[0] == heads[-1], "route is not a closed loop"
-    assert all(abs(ax - bx) + abs(ay - by) == 1 for (ax, ay), (bx, by) in zip(heads, heads[1:-1])), "the head jumps"
     assert all(heads[e["step"]] == [e["col"], e["row"]] for e in eats), "eats are not on the head route"
     assert eats == sorted(eats, key=lambda e: e["ms"]), "eats are not in time order"
 
@@ -112,9 +111,9 @@ def build(svg: str, route: dict, today: date) -> str:
     svg, n = re.subn(r'<rect class="s s\d"[^>]*/>', "", svg)
     assert n == 4, "expected a 4-segment snake: snk output format changed"
     svg = re.sub(r'<rect class="u u\d+"[^>]*/>', "", svg)
-    svg = re.sub(r"@keyframes (?:s[1-9]|u\d+)\{(?:[^{}]*\{[^{}]*\})*\}", "", svg)
+    svg = re.sub(r"@keyframes (?:s\d|u\d+)\{(?:[^{}]*\{[^{}]*\})*\}", "", svg)
     svg = re.sub(r"\.(?:s\.s\d|u\.u\d+|u)\{[^}]*\}", "", svg)
-    assert "@keyframes s0{" in svg
+    assert "@keyframes s" not in svg
 
     if not eats:                         # an empty year: nothing to remember, just the labelled grid
         return svg.replace("</svg>", labels(columns, colors, today) + "</svg>")
@@ -152,9 +151,8 @@ def build(svg: str, route: dict, today: date) -> str:
             merged[pct(ms)] = css + (f";animation-timing-function:{OUT}" if ease else "")
         return f"@keyframes {name}{{" + "".join(f"{k}{{{v}}}" for k, v in merged.items()) + "}"
 
-    puff_ms = loop / max(1, round(loop / PUFF_MS))
     css = [
-        f".x-m{{animation:s0 {loop}ms linear infinite}}",
+        f".x-m{{animation:x-m {loop}ms linear infinite}}",
         f".x-r{{transform-origin:8px 8px;animation:x-r {loop}ms linear infinite}}",
         f".x-a,.x-y,.x-c{{opacity:0;animation:x-a {loop}ms linear infinite}}",
         f".x-a{{fill:{AMBER}}}.x-y{{fill:{SUN};animation-name:x-y}}",
@@ -162,12 +160,9 @@ def build(svg: str, route: dict, today: date) -> str:
         f".x-h{{transform-origin:8px 8px;opacity:0;animation:x-h {loop}ms linear infinite}}",
         f".x-w{{transform-origin:18px 8px;opacity:0;animation:x-w {loop}ms linear infinite}}",
         f".x-t{{fill:{TAILLIGHT}}}",
-        # exhaust: the plume stretches with the charge; puffs drift back from the tailpipe, swell and fade
+        # tail-light glow behind the car: grows a little with the charge
         f".x-q{{transform-origin:-2px 8px;animation:x-q {loop}ms linear infinite}}",
-        f".x-u{{opacity:0;transform-box:fill-box;transform-origin:center;animation:x-u {puff_ms:.3f}ms linear infinite}}",
-        f"@keyframes x-u{{0%{{opacity:0;transform:translate(0,0) scale(.45);animation-timing-function:{OUT}}}"
-        "12%{opacity:.8}100%{opacity:0;transform:translate(-13px,0) scale(2.3)}}",
-        charge_keyframes("x-q", lambda c: f"transform:scale({.75 + .75 * c:.3f},{.9 + .25 * c:.3f})"),
+        charge_keyframes("x-q", lambda c: f"transform:scale({.7 + .6 * c:.3f},{.9 + .2 * c:.3f})"),
         charge_keyframes("x-a", lambda c: f"opacity:{heat_amber(c):.2f}"),
         charge_keyframes("x-y", lambda c: f"opacity:{heat_sun(c):.2f}"),
         charge_keyframes("x-c", lambda c: f"opacity:{heat_core(c):.2f}"),
@@ -175,26 +170,39 @@ def build(svg: str, route: dict, today: date) -> str:
         charge_keyframes("x-w", lambda c: f"opacity:{.35 + .5 * c:.2f};transform:scale({.45 + .55 * c:.3f},1)"),
     ]
 
-    # ---- the car: follows snk's head keyframes (s0) and turns to face the way it drives ---------
+    # ---- the car: drives the solver's route, through an arc at every turn, facing the way it goes --
+    # snk moves its head in straight lines with square corners. Here each corner is cut by a
+    # quarter circle of radius CORNER, and the car turns across that same arc.
     angle_of = {(1, 0): 0, (0, 1): 90, (-1, 0): 180, (0, -1): 270}
-    moves = [(bx - ax, by - ay) for (ax, ay), (bx, by) in zip(heads, heads[1:-1])]
-    moves.append(moves[0])               # the last step stands still: use it to turn towards the first move
-    angles, cur = [], angle_of[moves[0]]             # so the loop starts and ends facing the first move
-    start = cur
-    for mv in moves:
-        cur += (angle_of[mv] - cur + 180) % 360 - 180            # shortest turn
-        angles.append(cur)
-    turn = min(40, step_ms * .4)
-    stops, prev = [f"0%{{transform:rotate({start}deg)}}"], start
-    for i, a in enumerate(angles):
-        if a != prev:
-            t = i * step_ms
-            stops.append(f"{pct(t)}{{transform:rotate({prev}deg);animation-timing-function:{INOUT}}}")
-            stops.append(f"{pct(t + 2 * turn)}{{transform:rotate({a}deg)}}")
-            prev = a
-    assert (prev - start) % 360 == 0, "the car does not end facing the way it started"
-    stops.append(f"100%{{transform:rotate({prev}deg)}}")
-    css.append("@keyframes x-r{" + "".join(stops) + "}")
+    moves = [(bx - ax, by - ay) for (ax, ay), (bx, by) in zip(heads, heads[1:])]
+    assert all(mv in angle_of for mv in moves), "the head jumps"
+    share = CORNER / 16                  # part of a step spent in the arc, before and after the corner
+    inner = CORNER * (1 - math.sqrt(.5)) # how far the middle of the arc sits from the corner, per axis
+    start = cur = angle_of[moves[0]]
+    place = [f"0%{{transform:translate({heads[0][0] * 16}px,{heads[0][1] * 16}px)}}"]
+    face = [f"0%{{transform:rotate({start}deg)}}"]
+    for i in range(1, len(moves)):
+        (ix, iy), (ox, oy) = moves[i - 1], moves[i]
+        if (ix, iy) == (ox, oy):
+            continue
+        cx, cy, t = heads[i][0] * 16, heads[i][1] * 16, i * step_ms
+        nxt = cur + (angle_of[(ox, oy)] - cur + 180) % 360 - 180               # shortest turn
+        for dt, px, py in ((-share, cx - ix * CORNER, cy - iy * CORNER),
+                           (0, cx - ix * inner + ox * inner, cy - iy * inner + oy * inner),
+                           (share, cx + ox * CORNER, cy + oy * CORNER)):
+            place.append(f"{pct(t + dt * step_ms)}{{transform:translate({px:.1f}px,{py:.1f}px)}}")
+        face.append(f"{pct(t - share * step_ms)}{{transform:rotate({cur}deg)}}")
+        face.append(f"{pct(t + share * step_ms)}{{transform:rotate({nxt}deg)}}")
+        cur = nxt
+    # back at the start the car stands for one step: it uses it to turn towards its first move
+    home_at = len(moves) * step_ms
+    end = cur + (start - cur + 180) % 360 - 180
+    place.append(f"{pct(home_at)},100%{{transform:translate({heads[-1][0] * 16}px,{heads[-1][1] * 16}px)}}")
+    face.append(f"{pct(home_at)}{{transform:rotate({cur}deg);animation-timing-function:{INOUT}}}")
+    face.append(f"100%{{transform:rotate({end}deg)}}")
+    assert (end - start) % 360 == 0, "the car does not end facing the way it started"
+    css.append("@keyframes x-m{" + "".join(place) + "}")
+    css.append("@keyframes x-r{" + "".join(face) + "}")
 
     body = 'x="-2" y="3" width="20" height="10" rx="3.6"'
     car = (
@@ -202,10 +210,7 @@ def build(svg: str, route: dict, today: date) -> str:
         f'<circle class="x-h" cx="8" cy="8" r="{HALO_R}" fill="url(#x-hg)"/>'
         f'<g class="x-r" style="transform:rotate({start}deg)">'
         f'<path class="x-w" d="M18,4.6L{18 + BEAM_LEN},-3V19L18,11.4Z" fill="url(#x-wg)"/>'
-        '<g class="x-q">'
-        + "".join(f'<circle class="x-u" cx="-4.5" cy="{8 + (i % 2 * 2 - 1) * .8 * (i > 0):.1f}" r="2.6" fill="url(#x-sg)" '
-                  f'style="animation-delay:{-puff_ms * i / PUFFS:.1f}ms"/>' for i in range(PUFFS))
-        + '<path class="x-a" d="M-2,6.3L-11,8L-2,9.7Z"/><path class="x-y" d="M-2,7.1L-7.5,8L-2,8.9Z"/></g>'
+        '<path class="x-q" d="M-2,3.4L-13,.5V15.5L-2,12.6Z" fill="url(#x-tg)"/>'
         f'<rect {body} fill="{COOL}"/><rect class="x-a" {body}/><rect class="x-y" {body}/>'
         f'<rect class="x-c" x="12.6" y="5.2" width="3.4" height="5.6" rx="1.4"/>'
         f'<rect x="3.2" y="4.5" width="8.6" height="7" rx="2.2" fill="{GLASS}" opacity=".88"/>'
@@ -343,8 +348,8 @@ def build(svg: str, route: dict, today: date) -> str:
         f'<stop offset=".34" stop-color="{SUN}" stop-opacity=".45"/><stop offset="1" stop-color="{SUN}" stop-opacity="0"/></radialGradient>'
         f'<radialGradient id="x-hg"><stop offset="0" stop-color="{SUN}" stop-opacity=".55"/>'
         f'<stop offset=".5" stop-color="{CORE_RIM}" stop-opacity=".25"/><stop offset="1" stop-color="{CORE_RIM}" stop-opacity="0"/></radialGradient>'
-        f'<radialGradient id="x-sg"><stop offset="0" stop-color="{SMOKE}" stop-opacity=".9"/>'
-        f'<stop offset=".55" stop-color="{SMOKE}" stop-opacity=".45"/><stop offset="1" stop-color="{SMOKE}" stop-opacity="0"/></radialGradient>'
+        f'<linearGradient id="x-tg" gradientUnits="userSpaceOnUse" x1="-2" x2="-13">'
+        f'<stop offset="0" stop-color="{TAILLIGHT}" stop-opacity=".7"/><stop offset="1" stop-color="{TAILLIGHT}" stop-opacity="0"/></linearGradient>'
         f'<linearGradient id="x-wg" gradientUnits="userSpaceOnUse" x1="18" x2="{18 + BEAM_LEN}">'
         f'<stop offset="0" stop-color="{HEADLIGHT}" stop-opacity=".8"/><stop offset="1" stop-color="{HEADLIGHT}" stop-opacity="0"/></linearGradient>'
         "</defs>"
