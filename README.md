@@ -56,6 +56,8 @@ Every agent payment gets a grace period. Recourse for autonomous agent payments,
 </details>
 
 ## 📈 GitHub Statistics
+<img src="https://raw.githubusercontent.com/LingSiewWin/LingSiewWin/output/snake.svg" alt="Snake eating my GitHub contribution grid" width="100%">
+
 <details>
 <summary>📊 Click to see more GitHub statistics</summary>
 
