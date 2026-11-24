@@ -39,7 +39,7 @@
 </table>
 
 ## 📈 GitHub Statistics
-<img src="https://raw.githubusercontent.com/LingSiewWin/LingSiewWin/output/snake.svg" alt="Snake eating my GitHub contribution grid" width="100%">
+<img src="https://raw.githubusercontent.com/LingSiewWin/LingSiewWin/output/snake.svg" alt="A car drives across my GitHub contribution grid, eats each day, draws its route and builds a skyline from the weekly totals" width="100%">
 
 <details>
 <summary>📊 Click to see more GitHub statistics</summary>
