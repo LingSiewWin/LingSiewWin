@@ -1,6 +1,9 @@
 <img src="assets/scene.svg" alt="Driving along a neon coast road toward the setting sun, under a sign reading Welcome. Roadside billboards show project names." width="100%">
 
-<p align="center">🔖 Building AI x Web3 &nbsp;·&nbsp; ⛰️ Part-time hiker</p>
+<p align="center">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=LINGSIEWWIN.LINGSIEWWIN&left_color=%231a1b3a&right_color=%23ff38c8&left_text=You%20are%20visitor" alt="Visitor counter" height="26"><br>
+  🔖 Building AI x Web3 &nbsp;·&nbsp; ⛰️ Part-time hiker
+</p>
 
 ## 🗂️ Past Projects
 
@@ -78,9 +81,6 @@
     <td><img src="https://img.shields.io/badge/AMD-%23000000.svg?style=for-the-badge&logo=amd&logoColor=white" alt="AMD"></td>
   </tr>
 </table>
-
-## 👀 Visitors
-![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=LINGSIEWWIN.LINGSIEWWIN&left_color=red&right_color=green)
 
 ## 🌐 Socials
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg)](https://www.linkedin.com/in/ling-siew-win/) [![Email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:siewwwin@gmail.com)
