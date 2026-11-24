@@ -5,6 +5,12 @@ on:
     - cron: "0 0 * * *"
   workflow_dispatch:
 
+env:
+  # Platane/snk release v3.5.0. The solver runs from this exact commit.
+  SNK_REF: v3.5.0
+  SNK_SHA: d8f6715049803e982ee5ff501b6b9b7d5deeb09b
+  SNK_OUTPUT: "snake.svg?color_snake=#ffd23f&color_dots=#1a1b3a,#7b2ff7,#d726c8,#ff5fd2,#4ff0ff"
+
 jobs:
   generate:
     permissions:
@@ -15,15 +21,39 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: generate snake.svg from the contribution grid
-        uses: Platane/snk/svg-only@v3
-        with:
-          github_user_name: ${{ github.repository_owner }}
-          outputs: |
-            dist/snake.svg?color_snake=#ffd23f&color_dots=#1a1b3a,#7b2ff7,#d726c8,#ff5fd2,#4ff0ff
+      - uses: oven-sh/setup-bun@v2
 
-      - name: add eat effects, axis labels and colour legend
-        run: python3 .github/scripts/neon_snake.py dist/snake.svg
+      - name: fetch the snk solver at the pinned commit
+        run: |
+          git clone --quiet --depth 1 --branch "$SNK_REF" https://github.com/Platane/snk.git "$RUNNER_TEMP/snk"
+          test "$(git -C "$RUNNER_TEMP/snk" rev-parse HEAD)" = "$SNK_SHA"
+          # the solver packages import each other as @snk/<name> and have no other dependencies
+          mkdir -p "$RUNNER_TEMP/snk/node_modules/@snk"
+          for p in types solver svg-creator; do
+            ln -s "../../packages/$p" "$RUNNER_TEMP/snk/node_modules/@snk/$p"
+          done
+
+      - name: fetch the contribution calendar
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p build
+          gh api graphql -f login="${{ github.repository_owner }}" -f query='
+            query ($login: String!) {
+              user(login: $login) {
+                contributionsCollection {
+                  contributionCalendar {
+                    weeks { contributionDays { contributionCount contributionLevel weekday date } }
+                  }
+                }
+              }
+            }' > build/calendar.json
+
+      - name: solve the route and draw the untouched snk svg
+        run: SNK_DIR="$RUNNER_TEMP/snk" bun .github/scripts/route.ts build/calendar.json build "$SNK_OUTPUT"
+
+      - name: draw the night drive
+        run: python3 .github/scripts/neon_snake.py build/snk-raw.svg build/route.json dist/snake.svg
 
       - name: push snake.svg to the output branch
         uses: crazy-max/ghaction-github-pages@v5
