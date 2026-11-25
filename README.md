@@ -7,10 +7,15 @@
 
 ## 🗂️ Past Projects
 
+**What I build:** AI agents that can handle money safely. Mandates, allowances, bonds and enclave-signed decisions, enforced on chain.
+
+**Shipped on:** `NEAR` `Arc / Circle` `Arkiv` `World Chain` `Uniswap` `Base` `x402` `Aptos` `XRP Ledger` `Oasis Sapphire` `Arbitrum`
+
 <table>
   <tr>
     <td width="50%" valign="top">
       <h3><a href="https://nearbuddy.vercel.app">nearbuddy</a></h3>
+      <sub>📍 Built at NEAR Hackathon · Nov 2026</sub><br>
       <b>Stress-test AI trading agents in public</b><br><br>
       A public stress test for AI trading agents on NEAR: bonded, open to attack by anyone, every decision signed in an enclave and verified on chain.<br><br>
       <code>NEAR</code> <code>TEE enclave</code> <code>AI agents</code><br><br>
@@ -18,6 +23,7 @@
     </td>
     <td width="50%" valign="top">
       <h3><a href="https://cortex-arkiv.vercel.app">Cortex</a></h3>
+      <sub>📍 Built at Arkiv × ETHNS Builder Challenge · AI + Privacy · 2026</sub><br>
       <b>Darwinian memory for AI agents</b><br><br>
       Memory that evolves on Arkiv: memories an agent cites live longer, unused ones decay. Wallet-owned, RaBitQ-compressed, sealed client-side. Live console and MCP server.<br><br>
       <code>Arkiv</code> <code>MCP</code> <code>AI + Privacy</code><br><br>
@@ -43,6 +49,7 @@
   <tr>
     <td width="50%" valign="top">
       <h3><a href="https://human-mandate.vercel.app/desk">HumanMandate</a></h3>
+      <sub>📍 Built at ETHGlobal Lisbon 2026</sub><br>
       <b>Spending rules bound to a person</b><br><br>
       An allowance bound to a person, not an address. Enforced in Solidity, with Uniswap execution and an on-chain slippage floor. Live on World Chain mainnet.<br><br>
       <code>World Chain</code> <code>Solidity</code> <code>Uniswap</code><br><br>
