@@ -7,8 +7,6 @@
 
 ## 🗂️ Past Projects
 
-**What I build:** AI agents that can handle money safely. Mandates, allowances, bonds and enclave-signed decisions, enforced on chain.
-
 <table>
   <tr>
     <td width="50%" valign="top">
