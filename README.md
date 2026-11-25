@@ -61,18 +61,6 @@
 ## 📈 GitHub Statistics
 <img src="https://raw.githubusercontent.com/LingSiewWin/LingSiewWin/output/snake.svg" alt="A car drives across my GitHub contribution grid, eats each day, draws its route and builds a skyline from the weekly totals" width="100%">
 
-<details>
-<summary>📊 Click to see more GitHub statistics</summary>
-
-### Traditional GitHub Stats
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=LINGSIEWWIN&show_icons=true&theme=radical)  
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=LINGSIEWWIN&theme=radical)
-
-### Contribution Streak
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=LINGSIEWWIN&theme=radical)
-
-</details>
-
 ---
 
 ## 💻 Tech Stack
