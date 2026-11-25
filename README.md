@@ -9,34 +9,51 @@
 
 <table>
   <tr>
-    <td colspan="2" valign="top">
-      <b><a href="https://github.com/LingSiewWin/nearbuddy">nearbuddy</a></b> — stress-test AI trading agents in public<br><br>
+    <td width="50%" valign="top">
+      <h3><a href="https://nearbuddy.vercel.app">nearbuddy</a></h3>
+      <b>Stress-test AI trading agents in public</b><br><br>
       A public stress test for AI trading agents on NEAR: bonded, open to attack by anyone, every decision signed in an enclave and verified on chain.<br><br>
-      <a href="https://nearbuddy.vercel.app">▶ Live</a> · <a href="https://github.com/LingSiewWin/nearbuddy">Source</a>
+      <code>NEAR</code> <code>TEE enclave</code> <code>AI agents</code><br><br>
+      <a href="https://nearbuddy.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a> <a href="https://github.com/LingSiewWin/nearbuddy"><img src="https://img.shields.io/badge/Source-1a1b3a?style=for-the-badge&logo=github&logoColor=white" alt="Source"></a>
+    </td>
+    <td width="50%" valign="top">
+      <h3><a href="https://cortex-arkiv.vercel.app">Cortex</a></h3>
+      <b>Darwinian memory for AI agents</b><br><br>
+      Memory that evolves on Arkiv: memories an agent cites live longer, unused ones decay. Wallet-owned, RaBitQ-compressed, sealed client-side. Live console and MCP server.<br><br>
+      <code>Arkiv</code> <code>MCP</code> <code>AI + Privacy</code><br><br>
+      <a href="https://cortex-arkiv.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a>
     </td>
   </tr>
   <tr>
     <td width="50%" valign="top">
-      <b><a href="https://github.com/LingSiewWin/Tami">Tami</a></b> — the account you give your agents<br><br>
-      Agents pay in USDC inside a mandate you signed once. Mandates on-chain, a book both sides sign, USDC on Arc.<br><br>
-      <a href="https://tami-home.up.railway.app">▶ Live</a> · <a href="https://github.com/LingSiewWin/Tami">Source</a>
+      <h3><a href="https://arcane-arc.vercel.app">arcane</a></h3>
+      <b>On-chain trading arena</b><br><br>
+      An arena where you watch live autonomous agents trade, on chain.<br><br>
+      <code>On-chain</code> <code>Autonomous agents</code><br><br>
+      <a href="https://arcane-arc.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a>
     </td>
     <td width="50%" valign="top">
-      <b><a href="https://github.com/LingSiewWin/claudia">claudia</a></b> — an allowance, not your keys<br><br>
+      <h3><a href="https://claudiahq.vercel.app/">claudia</a></h3>
+      <b>An allowance, not your keys</b><br><br>
       The human authority layer for AI agents. The agent proposes, a deterministic engine checks the proposal against a mandate.<br><br>
-      <a href="https://claudiahq.vercel.app/">▶ Live</a> · <a href="https://github.com/LingSiewWin/claudia">Source</a>
+      <code>Agent payments</code> <code>Mandates</code><br><br>
+      <a href="https://claudiahq.vercel.app/"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a> <a href="https://github.com/LingSiewWin/claudia"><img src="https://img.shields.io/badge/Source-1a1b3a?style=for-the-badge&logo=github&logoColor=white" alt="Source"></a>
     </td>
   </tr>
   <tr>
     <td width="50%" valign="top">
-      <b><a href="https://github.com/LingSiewWin/HumanMandate">HumanMandate</a></b> — spending rules bound to a person<br><br>
+      <h3><a href="https://human-mandate.vercel.app/desk">HumanMandate</a></h3>
+      <b>Spending rules bound to a person</b><br><br>
       An allowance bound to a person, not an address. Enforced in Solidity, with Uniswap execution and an on-chain slippage floor. Live on World Chain mainnet.<br><br>
-      <a href="https://human-mandate.vercel.app/desk">▶ Live</a> · <a href="https://github.com/LingSiewWin/HumanMandate">Source</a>
+      <code>World Chain</code> <code>Solidity</code> <code>Uniswap</code><br><br>
+      <a href="https://human-mandate.vercel.app/desk"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a> <a href="https://github.com/LingSiewWin/HumanMandate"><img src="https://img.shields.io/badge/Source-1a1b3a?style=for-the-badge&logo=github&logoColor=white" alt="Source"></a>
     </td>
     <td width="50%" valign="top">
-      <b><a href="https://github.com/LingSiewWin/grazey">grazey</a></b> — a grace period for agent payments<br><br>
-      Every agent payment gets a grace period. Recourse for autonomous agent payments, on Arc.<br><br>
-      <a href="https://github.com/LingSiewWin/grazey">Source</a>
+      <h3><a href="https://github.com/LingSiewWin/ERC-7857">ERC-7857</a></h3>
+      <b>AI agent NFTs, ready to scaffold</b><br><br>
+      An ERC-7857 (Intelligent NFT) extension for Scaffold-ETH 2: contracts for minting, transfer and cloning, TEE verification, encrypted metadata, and React components.<br><br>
+      <code>ERC-7857</code> <code>Scaffold-ETH 2</code> <code>TEE</code><br><br>
+      <a href="https://github.com/LingSiewWin/ERC-7857"><img src="https://img.shields.io/badge/Source-1a1b3a?style=for-the-badge&logo=github&logoColor=white" alt="Source"></a>
     </td>
   </tr>
 </table>
