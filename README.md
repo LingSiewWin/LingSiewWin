@@ -9,24 +9,26 @@
 
 **What I build:** AI agents that can handle money safely. Mandates, allowances, bonds and enclave-signed decisions, enforced on chain.
 
-**Shipped on:** `NEAR` `Arc / Circle` `Arkiv` `World Chain` `Uniswap` `Base` `x402` `Aptos` `XRP Ledger` `Oasis Sapphire` `Arbitrum`
+<p><b>Shipped on:</b>&nbsp; <img src="https://github.com/near.png?size=40" width="16" height="16" alt="">&nbsp;<b>NEAR</b> &nbsp;·&nbsp; <img src="https://github.com/circlefin.png?size=40" width="16" height="16" alt="">&nbsp;<b>Arc&nbsp;/&nbsp;Circle</b> &nbsp;·&nbsp; <img src="https://github.com/Arkiv-Network.png?size=40" width="16" height="16" alt="">&nbsp;<b>Arkiv</b> &nbsp;·&nbsp; <img src="https://github.com/cardano-foundation.png?size=40" width="16" height="16" alt="">&nbsp;<b>Cardano</b> &nbsp;·&nbsp; <img src="https://github.com/smartcontractkit.png?size=40" width="16" height="16" alt="">&nbsp;<b>Chainlink</b> &nbsp;·&nbsp; <img src="https://github.com/worldcoin.png?size=40" width="16" height="16" alt="">&nbsp;<b>World&nbsp;Chain</b> &nbsp;·&nbsp; <img src="https://github.com/Uniswap.png?size=40" width="16" height="16" alt="">&nbsp;<b>Uniswap</b> &nbsp;·&nbsp; <img src="https://github.com/scaffold-eth.png?size=40" width="16" height="16" alt="">&nbsp;<b>Scaffold-ETH</b> &nbsp;·&nbsp; <img src="https://github.com/ethereum.png?size=40" width="16" height="16" alt="">&nbsp;<b>Ethereum</b> &nbsp;·&nbsp; <img src="https://github.com/oasisprotocol.png?size=40" width="16" height="16" alt="">&nbsp;<b>Oasis&nbsp;Sapphire</b> &nbsp;·&nbsp; <img src="https://github.com/base.png?size=40" width="16" height="16" alt="">&nbsp;<b>Base</b> &nbsp;·&nbsp; <img src="https://github.com/coinbase.png?size=40" width="16" height="16" alt="">&nbsp;<b>x402</b> &nbsp;·&nbsp; <img src="https://github.com/aptos-labs.png?size=40" width="16" height="16" alt="">&nbsp;<b>Aptos</b> &nbsp;·&nbsp; <img src="https://github.com/XRPLF.png?size=40" width="16" height="16" alt="">&nbsp;<b>XRP&nbsp;Ledger</b></p>
 
 <table>
   <tr>
     <td width="50%" valign="top">
       <h3><a href="https://nearbuddy.vercel.app">nearbuddy</a></h3>
-      <sub>📍 Built at NEAR Hackathon · Nov 2026</sub><br>
+      <sub>📍 NEAR Hackathon 2026</sub><br>
       <b>Stress-test AI trading agents in public</b><br><br>
       A public stress test for AI trading agents on NEAR: bonded, open to attack by anyone, every decision signed in an enclave and verified on chain.<br><br>
-      <code>NEAR</code> <code>TEE enclave</code> <code>AI agents</code><br><br>
+      <img src="https://github.com/near.png?size=40" width="16" height="16" alt="">&nbsp;<b>NEAR</b><br>
+      <code>TEE enclave</code> <code>AI agents</code><br><br>
       <a href="https://nearbuddy.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a> <a href="https://github.com/LingSiewWin/nearbuddy"><img src="https://img.shields.io/badge/Source-1a1b3a?style=for-the-badge&logo=github&logoColor=white" alt="Source"></a>
     </td>
     <td width="50%" valign="top">
       <h3><a href="https://cortex-arkiv.vercel.app">Cortex</a></h3>
-      <sub>📍 Built at Arkiv × ETHNS Builder Challenge · AI + Privacy · 2026</sub><br>
+      <sub>📍 Arkiv × ETHNS Builder Challenge 2026</sub><br>
       <b>Darwinian memory for AI agents</b><br><br>
       Memory that evolves on Arkiv: memories an agent cites live longer, unused ones decay. Wallet-owned, RaBitQ-compressed, sealed client-side. Live console and MCP server.<br><br>
-      <code>Arkiv</code> <code>MCP</code> <code>AI + Privacy</code><br><br>
+      <img src="https://github.com/Arkiv-Network.png?size=40" width="16" height="16" alt="">&nbsp;<b>Arkiv</b><br>
+      <code>MCP</code> <code>AI + Privacy</code><br><br>
       <a href="https://cortex-arkiv.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a>
     </td>
   </tr>
@@ -35,13 +37,15 @@
       <h3><a href="https://arcane-arc.vercel.app">arcane</a></h3>
       <b>On-chain trading arena</b><br><br>
       An arena where you watch live autonomous agents trade, on chain.<br><br>
-      <code>On-chain</code> <code>Autonomous agents</code><br><br>
+      <img src="https://github.com/circlefin.png?size=40" width="16" height="16" alt="">&nbsp;<b>Arc&nbsp;/&nbsp;Circle</b><br>
+      <code>Autonomous agents</code><br><br>
       <a href="https://arcane-arc.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a>
     </td>
     <td width="50%" valign="top">
       <h3><a href="https://claudiahq.vercel.app/">claudia</a></h3>
       <b>An allowance, not your keys</b><br><br>
       The human authority layer for AI agents. The agent proposes, a deterministic engine checks the proposal against a mandate.<br><br>
+      <img src="https://github.com/cardano-foundation.png?size=40" width="16" height="16" alt="">&nbsp;<b>Cardano</b> &nbsp;·&nbsp; <img src="https://github.com/smartcontractkit.png?size=40" width="16" height="16" alt="">&nbsp;<b>Chainlink</b> &nbsp;·&nbsp; <img src="https://github.com/coinbase.png?size=40" width="16" height="16" alt="">&nbsp;<b>x402</b><br>
       <code>Agent payments</code> <code>Mandates</code><br><br>
       <a href="https://claudiahq.vercel.app/"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a> <a href="https://github.com/LingSiewWin/claudia"><img src="https://img.shields.io/badge/Source-1a1b3a?style=for-the-badge&logo=github&logoColor=white" alt="Source"></a>
     </td>
@@ -49,17 +53,19 @@
   <tr>
     <td width="50%" valign="top">
       <h3><a href="https://human-mandate.vercel.app/desk">HumanMandate</a></h3>
-      <sub>📍 Built at ETHGlobal Lisbon 2026</sub><br>
+      <sub>📍 ETHGlobal Lisbon 2026</sub><br>
       <b>Spending rules bound to a person</b><br><br>
       An allowance bound to a person, not an address. Enforced in Solidity, with Uniswap execution and an on-chain slippage floor. Live on World Chain mainnet.<br><br>
-      <code>World Chain</code> <code>Solidity</code> <code>Uniswap</code><br><br>
+      <img src="https://github.com/worldcoin.png?size=40" width="16" height="16" alt="">&nbsp;<b>World&nbsp;Chain</b> &nbsp;·&nbsp; <img src="https://github.com/Uniswap.png?size=40" width="16" height="16" alt="">&nbsp;<b>Uniswap</b><br>
+      <code>Solidity</code><br><br>
       <a href="https://human-mandate.vercel.app/desk"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a> <a href="https://github.com/LingSiewWin/HumanMandate"><img src="https://img.shields.io/badge/Source-1a1b3a?style=for-the-badge&logo=github&logoColor=white" alt="Source"></a>
     </td>
     <td width="50%" valign="top">
       <h3><a href="https://github.com/LingSiewWin/ERC-7857">ERC-7857</a></h3>
       <b>AI agent NFTs, ready to scaffold</b><br><br>
       An ERC-7857 (Intelligent NFT) extension for Scaffold-ETH 2: contracts for minting, transfer and cloning, TEE verification, encrypted metadata, and React components.<br><br>
-      <code>ERC-7857</code> <code>Scaffold-ETH 2</code> <code>TEE</code><br><br>
+      <img src="https://github.com/scaffold-eth.png?size=40" width="16" height="16" alt="">&nbsp;<b>Scaffold-ETH</b> &nbsp;·&nbsp; <img src="https://github.com/ethereum.png?size=40" width="16" height="16" alt="">&nbsp;<b>Ethereum</b> &nbsp;·&nbsp; <img src="https://github.com/oasisprotocol.png?size=40" width="16" height="16" alt="">&nbsp;<b>Oasis&nbsp;Sapphire</b><br>
+      <code>ERC-7857</code> <code>TEE</code><br><br>
       <a href="https://github.com/LingSiewWin/ERC-7857"><img src="https://img.shields.io/badge/Source-1a1b3a?style=for-the-badge&logo=github&logoColor=white" alt="Source"></a>
     </td>
   </tr>
