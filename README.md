@@ -23,7 +23,7 @@
     <td valign="top"><a href="https://nearbuddy.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=flat-square" alt="Live"></a><br><a href="https://github.com/LingSiewWin/nearbuddy"><img src="https://img.shields.io/badge/Source-1a1b3a?style=flat-square" alt="Source"></a></td>
   </tr>
   <tr>
-    <td valign="top"><b><a href="https://claudiahq.vercel.app/">claudia</a></b></td>
+    <td valign="top"><b><a href="https://claudiahq.vercel.app/">claudia</a></b><br><sub>📍&nbsp;TOKEN2049 Singapore 2026</sub></td>
     <td valign="top"><b>An allowance, not your keys</b><br>The human authority layer for AI agents. The agent proposes, a deterministic engine checks the proposal against a mandate.</td>
     <td valign="top"><img src="https://github.com/cardano-foundation.png?size=40" width="16" height="16" alt="">&nbsp;Cardano<br><img src="https://github.com/smartcontractkit.png?size=40" width="16" height="16" alt="">&nbsp;Chainlink<br><img src="https://github.com/coinbase.png?size=40" width="16" height="16" alt="">&nbsp;x402</td>
     <td valign="top"><a href="https://claudiahq.vercel.app/"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=flat-square" alt="Live"></a><br><a href="https://github.com/LingSiewWin/claudia"><img src="https://img.shields.io/badge/Source-1a1b3a?style=flat-square" alt="Source"></a></td>
@@ -48,7 +48,7 @@
   </tr>
   <tr>
     <td rowspan="1" align="center" valign="top"><b>2025</b></td>
-    <td valign="top"><b><a href="https://github.com/LingSiewWin/ERC-7857">ERC-7857</a></b></td>
+    <td valign="top"><b><a href="https://github.com/LingSiewWin/ERC-7857">ERC-7857</a></b><br><sub>📍&nbsp;DevMatch 2025</sub></td>
     <td valign="top"><b>AI agent NFTs, ready to scaffold</b><br>An ERC-7857 (Intelligent NFT) extension for Scaffold-ETH 2: contracts for minting, transfer and cloning, TEE verification, encrypted metadata, and React components.</td>
     <td valign="top"><img src="https://github.com/scaffold-eth.png?size=40" width="16" height="16" alt="">&nbsp;Scaffold-ETH<br><img src="https://github.com/ethereum.png?size=40" width="16" height="16" alt="">&nbsp;Ethereum<br><img src="https://github.com/oasisprotocol.png?size=40" width="16" height="16" alt="">&nbsp;Oasis&nbsp;Sapphire</td>
     <td valign="top"><a href="https://github.com/LingSiewWin/ERC-7857"><img src="https://img.shields.io/badge/Source-1a1b3a?style=flat-square" alt="Source"></a></td>
