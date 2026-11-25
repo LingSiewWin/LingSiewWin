@@ -41,7 +41,7 @@
     <td valign="top"><a href="https://cortex-arkiv.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=flat-square" alt="Live"></a></td>
   </tr>
   <tr>
-    <td valign="top"><b><a href="https://arcane-arc.vercel.app">arcane</a></b></td>
+    <td valign="top"><b><a href="https://arcane-arc.vercel.app">arcane</a></b><br><sub>📍&nbsp;Agora Hack 2026</sub></td>
     <td valign="top"><b>On-chain trading arena</b><br>An arena where you watch live autonomous agents trade, on chain.</td>
     <td valign="top"><img src="https://github.com/circlefin.png?size=40" width="16" height="16" alt="">&nbsp;Arc&nbsp;/&nbsp;Circle</td>
     <td valign="top"><a href="https://arcane-arc.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=flat-square" alt="Live"></a></td>
