@@ -9,69 +9,49 @@
 
 <table>
   <tr>
-    <th colspan="2" align="left">2026</th>
+    <th align="left">Year</th>
+    <th align="left">Project</th>
+    <th align="left">What it does</th>
+    <th align="left">Built on</th>
+    <th align="left">Links</th>
   </tr>
   <tr>
-    <td colspan="2" valign="top">
-      <h3><a href="https://nearbuddy.vercel.app">nearbuddy</a></h3>
-      <sub>📍 NEAR Hackathon 2026</sub><br>
-      <b>Stress-test AI trading agents in public</b><br><br>
-      A public stress test for AI trading agents on NEAR: bonded, open to attack by anyone, every decision signed in an enclave and verified on chain.<br><br>
-      <img src="https://github.com/near.png?size=40" width="16" height="16" alt="">&nbsp;<b>NEAR</b><br>
-      <code>TEE enclave</code> <code>AI agents</code><br><br>
-      <a href="https://nearbuddy.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a> <a href="https://github.com/LingSiewWin/nearbuddy"><img src="https://img.shields.io/badge/Source-1a1b3a?style=for-the-badge&logo=github&logoColor=white" alt="Source"></a>
-    </td>
+    <td rowspan="5" align="center" valign="top"><b>2026</b></td>
+    <td valign="top"><b><a href="https://nearbuddy.vercel.app">nearbuddy</a></b><br><sub>📍&nbsp;NEAR Hackathon 2026</sub></td>
+    <td valign="top"><b>Stress-test AI trading agents in public</b><br>A public stress test for AI trading agents on NEAR: bonded, open to attack by anyone, every decision signed in an enclave and verified on chain.</td>
+    <td valign="top"><img src="https://github.com/near.png?size=40" width="16" height="16" alt="">&nbsp;NEAR</td>
+    <td valign="top"><a href="https://nearbuddy.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=flat-square" alt="Live"></a><br><a href="https://github.com/LingSiewWin/nearbuddy"><img src="https://img.shields.io/badge/Source-1a1b3a?style=flat-square" alt="Source"></a></td>
   </tr>
   <tr>
-    <td width="50%" valign="top">
-      <h3><a href="https://claudiahq.vercel.app/">claudia</a></h3>
-      <b>An allowance, not your keys</b><br><br>
-      The human authority layer for AI agents. The agent proposes, a deterministic engine checks the proposal against a mandate.<br><br>
-      <img src="https://github.com/cardano-foundation.png?size=40" width="16" height="16" alt="">&nbsp;<b>Cardano</b> &nbsp;·&nbsp; <img src="https://github.com/smartcontractkit.png?size=40" width="16" height="16" alt="">&nbsp;<b>Chainlink</b> &nbsp;·&nbsp; <img src="https://github.com/coinbase.png?size=40" width="16" height="16" alt="">&nbsp;<b>x402</b><br>
-      <code>Agent payments</code> <code>Mandates</code><br><br>
-      <a href="https://claudiahq.vercel.app/"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a> <a href="https://github.com/LingSiewWin/claudia"><img src="https://img.shields.io/badge/Source-1a1b3a?style=for-the-badge&logo=github&logoColor=white" alt="Source"></a>
-    </td>
-    <td width="50%" valign="top">
-      <h3><a href="https://human-mandate.vercel.app/desk">HumanMandate</a></h3>
-      <sub>📍 ETHGlobal Lisbon 2026</sub><br>
-      <b>Spending rules bound to a person</b><br><br>
-      An allowance bound to a person, not an address. Enforced in Solidity, with Uniswap execution and an on-chain slippage floor. Live on World Chain mainnet.<br><br>
-      <img src="https://github.com/worldcoin.png?size=40" width="16" height="16" alt="">&nbsp;<b>World&nbsp;Chain</b> &nbsp;·&nbsp; <img src="https://github.com/Uniswap.png?size=40" width="16" height="16" alt="">&nbsp;<b>Uniswap</b><br>
-      <code>Solidity</code><br><br>
-      <a href="https://human-mandate.vercel.app/desk"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a> <a href="https://github.com/LingSiewWin/HumanMandate"><img src="https://img.shields.io/badge/Source-1a1b3a?style=for-the-badge&logo=github&logoColor=white" alt="Source"></a>
-    </td>
+    <td valign="top"><b><a href="https://claudiahq.vercel.app/">claudia</a></b></td>
+    <td valign="top"><b>An allowance, not your keys</b><br>The human authority layer for AI agents. The agent proposes, a deterministic engine checks the proposal against a mandate.</td>
+    <td valign="top"><img src="https://github.com/cardano-foundation.png?size=40" width="16" height="16" alt="">&nbsp;Cardano<br><img src="https://github.com/smartcontractkit.png?size=40" width="16" height="16" alt="">&nbsp;Chainlink<br><img src="https://github.com/coinbase.png?size=40" width="16" height="16" alt="">&nbsp;x402</td>
+    <td valign="top"><a href="https://claudiahq.vercel.app/"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=flat-square" alt="Live"></a><br><a href="https://github.com/LingSiewWin/claudia"><img src="https://img.shields.io/badge/Source-1a1b3a?style=flat-square" alt="Source"></a></td>
   </tr>
   <tr>
-    <td width="50%" valign="top">
-      <h3><a href="https://cortex-arkiv.vercel.app">Cortex</a></h3>
-      <sub>📍 Arkiv × ETHNS Builder Challenge 2026</sub><br>
-      <b>Darwinian memory for AI agents</b><br><br>
-      Memory that evolves on Arkiv: memories an agent cites live longer, unused ones decay. Wallet-owned, RaBitQ-compressed, sealed client-side. Live console and MCP server.<br><br>
-      <img src="https://github.com/Arkiv-Network.png?size=40" width="16" height="16" alt="">&nbsp;<b>Arkiv</b><br>
-      <code>MCP</code> <code>AI + Privacy</code><br><br>
-      <a href="https://cortex-arkiv.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a>
-    </td>
-    <td width="50%" valign="top">
-      <h3><a href="https://arcane-arc.vercel.app">arcane</a></h3>
-      <b>On-chain trading arena</b><br><br>
-      An arena where you watch live autonomous agents trade, on chain.<br><br>
-      <img src="https://github.com/circlefin.png?size=40" width="16" height="16" alt="">&nbsp;<b>Arc&nbsp;/&nbsp;Circle</b><br>
-      <code>Autonomous agents</code><br><br>
-      <a href="https://arcane-arc.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=for-the-badge" alt="Live"></a>
-    </td>
+    <td valign="top"><b><a href="https://human-mandate.vercel.app/desk">HumanMandate</a></b><br><sub>📍&nbsp;ETHGlobal Lisbon 2026</sub></td>
+    <td valign="top"><b>Spending rules bound to a person</b><br>An allowance bound to a person, not an address. Enforced in Solidity, with Uniswap execution and an on-chain slippage floor. Live on World Chain mainnet.</td>
+    <td valign="top"><img src="https://github.com/worldcoin.png?size=40" width="16" height="16" alt="">&nbsp;World&nbsp;Chain<br><img src="https://github.com/Uniswap.png?size=40" width="16" height="16" alt="">&nbsp;Uniswap</td>
+    <td valign="top"><a href="https://human-mandate.vercel.app/desk"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=flat-square" alt="Live"></a><br><a href="https://github.com/LingSiewWin/HumanMandate"><img src="https://img.shields.io/badge/Source-1a1b3a?style=flat-square" alt="Source"></a></td>
   </tr>
   <tr>
-    <th colspan="2" align="left">2025</th>
+    <td valign="top"><b><a href="https://cortex-arkiv.vercel.app">Cortex</a></b><br><sub>📍&nbsp;Arkiv × ETHNS Builder Challenge 2026</sub></td>
+    <td valign="top"><b>Darwinian memory for AI agents</b><br>Memory that evolves on Arkiv: memories an agent cites live longer, unused ones decay. Wallet-owned, RaBitQ-compressed, sealed client-side. Live console and MCP server.</td>
+    <td valign="top"><img src="https://github.com/Arkiv-Network.png?size=40" width="16" height="16" alt="">&nbsp;Arkiv</td>
+    <td valign="top"><a href="https://cortex-arkiv.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=flat-square" alt="Live"></a></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top">
-      <h3><a href="https://github.com/LingSiewWin/ERC-7857">ERC-7857</a></h3>
-      <b>AI agent NFTs, ready to scaffold</b><br><br>
-      An ERC-7857 (Intelligent NFT) extension for Scaffold-ETH 2: contracts for minting, transfer and cloning, TEE verification, encrypted metadata, and React components.<br><br>
-      <img src="https://github.com/scaffold-eth.png?size=40" width="16" height="16" alt="">&nbsp;<b>Scaffold-ETH</b> &nbsp;·&nbsp; <img src="https://github.com/ethereum.png?size=40" width="16" height="16" alt="">&nbsp;<b>Ethereum</b> &nbsp;·&nbsp; <img src="https://github.com/oasisprotocol.png?size=40" width="16" height="16" alt="">&nbsp;<b>Oasis&nbsp;Sapphire</b><br>
-      <code>ERC-7857</code> <code>TEE</code><br><br>
-      <a href="https://github.com/LingSiewWin/ERC-7857"><img src="https://img.shields.io/badge/Source-1a1b3a?style=for-the-badge&logo=github&logoColor=white" alt="Source"></a>
-    </td>
+    <td valign="top"><b><a href="https://arcane-arc.vercel.app">arcane</a></b></td>
+    <td valign="top"><b>On-chain trading arena</b><br>An arena where you watch live autonomous agents trade, on chain.</td>
+    <td valign="top"><img src="https://github.com/circlefin.png?size=40" width="16" height="16" alt="">&nbsp;Arc&nbsp;/&nbsp;Circle</td>
+    <td valign="top"><a href="https://arcane-arc.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_Live-ff38c8?style=flat-square" alt="Live"></a></td>
+  </tr>
+  <tr>
+    <td rowspan="1" align="center" valign="top"><b>2025</b></td>
+    <td valign="top"><b><a href="https://github.com/LingSiewWin/ERC-7857">ERC-7857</a></b></td>
+    <td valign="top"><b>AI agent NFTs, ready to scaffold</b><br>An ERC-7857 (Intelligent NFT) extension for Scaffold-ETH 2: contracts for minting, transfer and cloning, TEE verification, encrypted metadata, and React components.</td>
+    <td valign="top"><img src="https://github.com/scaffold-eth.png?size=40" width="16" height="16" alt="">&nbsp;Scaffold-ETH<br><img src="https://github.com/ethereum.png?size=40" width="16" height="16" alt="">&nbsp;Ethereum<br><img src="https://github.com/oasisprotocol.png?size=40" width="16" height="16" alt="">&nbsp;Oasis&nbsp;Sapphire</td>
+    <td valign="top"><a href="https://github.com/LingSiewWin/ERC-7857"><img src="https://img.shields.io/badge/Source-1a1b3a?style=flat-square" alt="Source"></a></td>
   </tr>
 </table>
 
